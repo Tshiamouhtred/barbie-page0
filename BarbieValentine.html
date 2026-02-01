@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Be My Valentine ❤️</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      opacity: 1;
+      transition: opacity 1.5s ease;
+      animation: glowPulse 6s infinite alternate;
+    }
+    h1 {
+      margin-top: 60px;
+      font-size: 8em;
+      color: #d6336c;
+      text-shadow: 2px 2px 6px #fff;
+      position: relative;
+      z-index: 1; /* keep text above emojis */
+    }
+    h2 {
+      margin-top: 40px;
+      font-size: 2.5em;
+      color: #b30059;
+      text-shadow: 1px 1px 4px #fff;
+      position: relative;
+      z-index: 1;
+    }
+    .buttons {
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    button {
+      font-size: 1.8em;
+      padding: 20px 35px;
+      margin: 15px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
+    }
+    button:hover { transform: scale(1.1); }
+    #yesBtn { background-color: #ff4d6d; color: white; }
+    #noBtn { background-color: #999; color: white; }
+    #replayBtn { background-color: #ff85a2; color: white; }
+    #response {
+      display: none;
+      margin-top: 30px;
+      min-height: 200vh; /* ensures scrolling */
+      position: relative;
+      z-index: 1;
+    }
+    img {
+      margin-top: 30px;
+      max-width: 70%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.8);
+      position: relative;
+      z-index: 1;
+    }
+    /* Floating emojis randomly placed, lighter and behind text */
+    .floating {
+      position: absolute;
+      opacity: 0.25;              /* lighter transparency */
+      text-shadow: 0 0 6px pink;  /* softer glow */
+      animation: fadeOut 6s linear forwards;
+      z-index: 0;                 /* behind text */
+    }
+    @keyframes fadeOut {
+      0% { opacity: 0.25; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.5) rotate(20deg); }
+    }
+    @keyframes glowPulse {
+      0% { background: linear-gradient(to right, #ff9a9e, #fad0c4); }
+      50% { background: linear-gradient(to right, #ffd1ff, #ffb6c1); }
+      100% { background: linear-gradient(to right, #ff9a9e, #fad0c4); }
+    }
+    .love-letter {
+      margin: 50px auto;
+      max-width: 800px;
+      font-size: 1.8em;
+      line-height: 1.6;
+      color: #5a0033;
+      text-align: left;
+      padding: 20px;
+      position: relative;
+      z-index: 1; /* keep letter above emojis */
+    }
+  </style>
+</head>
+<body>
+  <!-- Initial Question -->
+  <div id="question">
+    <h1>💖 Barbie, will you be my Valentine? 💘</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes ❤️</button>
+      <button id="noBtn">No 💔</button>
+    </div>
+  </div>
+
+  <!-- Response Section -->
+  <div id="response">
+    <h2>YOU'RE MY FOREVER VALENTINE!!! I LOVE YOU BARBIE!!!💕🌹</h2>
+    <img src="download.gif" alt="Valetine">
+
+    <!-- Scrollable love letter -->
+    <div class="love-letter">
+      <p>💖 Roses are red, violets are blue,</p>
+      <p>🌹 Every heartbeat whispers: Barbie, I choose you.</p>
+      <p>✨ Through every season, every day,</p>
+      <p>💘 My love for you grows in the sweetest way.</p>
+      <p>🌸 You’re my sunshine, my laughter, my song,</p>
+      <p>❤️ With you, my forever feels beautifully long.</p>
+      <p>🌷 So scroll down, my love, and see,</p>
+      <p>💞 You’ll always be my Valentine, eternally.</p>
+    </div>
+
+    <div class="buttons">
+      <button id="replayBtn">Replay 🔄</button>
+    </div>
+  </div>
+
+  <!-- Harp music -->
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7d8f3f3f2b.mp3?filename=harp-angelic-11157.mp3"></audio>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const replayBtn = document.getElementById('replayBtn');
+    const questionDiv = document.getElementById('question');
+    const responseDiv = document.getElementById('response');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // Random floating emojis generator
+    function createFloatingEmoji() {
+      const emojis = ["💖","🌹","💘","🌸","❤️","🌷"];
+      const emoji = document.createElement("div");
+      emoji.classList.add("floating");
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      // Random position anywhere on screen
+      emoji.style.left = Math.random() * 100 + "vw";
+      emoji.style.top = Math.random() * 100 + "vh";
+
+      // Random size
+      emoji.style.fontSize = (3 + Math.random() * 3) + "em";
+
+      // Random animation duration
+      emoji.style.animationDuration = (3 + Math.random() * 4) + "s";
+
+      document.body.appendChild(emoji);
+
+      setTimeout(() => { emoji.remove(); }, 7000);
+    }
+    setInterval(createFloatingEmoji, 400);
+
+    // Yes button click
+    yesBtn.addEventListener('click', () => {
+      document.body.style.opacity = 0;
+      setTimeout(() => {
+        questionDiv.style.display = "none";
+        responseDiv.style.display = "block";
+        document.body.style.opacity = 1;
+        noBtn.disabled = true;
+        bgMusic.play();
+      }, 1500);
+    });
+
+    // Replay button click
+    replayBtn.addEventListener('click', () => {
+      document.body.style.opacity = 0;
+      setTimeout(() => {
+        responseDiv.style.display = "none";
+        questionDiv.style.display = "block";
+        document.body.style.opacity = 1;
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+        noBtn.disabled = false;
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
+
+
+
